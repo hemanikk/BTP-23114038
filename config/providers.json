@@ -1,0 +1,142 @@
+{
+  "_comment": "Provider-specific email alias rules. Each rule is based on publicly documented provider behavior. Rules marked 'verified: false' are not confirmed and will NOT be applied — they are placeholders for future research.",
+  "providers": {
+    "gmail.com": {
+      "name": "Gmail",
+      "domains": ["gmail.com", "googlemail.com"],
+      "verified": true,
+      "rules": {
+        "plus_addressing": {
+          "enabled": true,
+          "description": "Everything after '+' in the local part is ignored.",
+          "verified": true,
+          "source": "https://support.google.com/mail/answer/22370"
+        },
+        "dot_insensitive": {
+          "enabled": true,
+          "description": "Dots in the local part are ignored. 'user.name' == 'username'.",
+          "verified": true,
+          "source": "https://support.google.com/mail/answer/7436150"
+        },
+        "case_insensitive": {
+          "enabled": true,
+          "description": "Local part is case-insensitive.",
+          "verified": true,
+          "source": "https://support.google.com/mail/answer/22370"
+        },
+        "googlemail_alias": {
+          "enabled": true,
+          "description": "gmail.com and googlemail.com are treated as the same domain.",
+          "verified": true,
+          "source": "https://support.google.com/mail/answer/10313"
+        }
+      }
+    },
+    "yahoo.com": {
+      "name": "Yahoo Mail",
+      "domains": ["yahoo.com", "yahoo.co.uk", "yahoo.co.in", "ymail.com"],
+      "verified": true,
+      "rules": {
+        "plus_addressing": {
+          "enabled": true,
+          "description": "Yahoo supports disposable addresses using a base name and keyword (base-keyword@yahoo.com). The '-' separator is Yahoo's variant of plus addressing.",
+          "verified": true,
+          "source": "https://help.yahoo.com/kb/SLN2056.html"
+        },
+        "dot_insensitive": {
+          "enabled": false,
+          "description": "Yahoo Mail does NOT ignore dots in the local part. 'user.name' and 'username' are different addresses.",
+          "verified": true,
+          "source": "https://help.yahoo.com/kb/SLN2056.html"
+        },
+        "case_insensitive": {
+          "enabled": true,
+          "description": "Local part is case-insensitive.",
+          "verified": true,
+          "source": "General RFC 5321 practice; Yahoo confirmed."
+        }
+      }
+    },
+    "outlook.com": {
+      "name": "Outlook / Hotmail",
+      "domains": ["outlook.com", "hotmail.com", "live.com", "msn.com"],
+      "verified": true,
+      "rules": {
+        "plus_addressing": {
+          "enabled": true,
+          "description": "Outlook supports plus addressing. Email to user+tag@outlook.com is delivered to user@outlook.com.",
+          "verified": true,
+          "source": "https://support.microsoft.com/en-us/office/plus-addressing-in-outlook-df5f3b12-46e5-4e2e-ab04-5e3b7d2534c5"
+        },
+        "dot_insensitive": {
+          "enabled": false,
+          "description": "Outlook/Hotmail treats dots as significant. Not confirmed to ignore them.",
+          "verified": true,
+          "source": "Microsoft documentation does not state dot-insensitivity."
+        },
+        "case_insensitive": {
+          "enabled": true,
+          "description": "Local part is case-insensitive.",
+          "verified": true,
+          "source": "General RFC 5321 practice."
+        }
+      }
+    },
+    "proton.me": {
+      "name": "Proton Mail",
+      "domains": ["proton.me", "protonmail.com", "pm.me"],
+      "verified": true,
+      "rules": {
+        "plus_addressing": {
+          "enabled": true,
+          "description": "Proton Mail supports plus addressing (subaddressing).",
+          "verified": true,
+          "source": "https://proton.me/support/creating-aliases"
+        },
+        "dot_insensitive": {
+          "enabled": false,
+          "description": "Proton Mail does NOT ignore dots in the local part.",
+          "verified": true,
+          "source": "https://proton.me/support/creating-aliases"
+        },
+        "case_insensitive": {
+          "enabled": true,
+          "description": "Local part is case-insensitive.",
+          "verified": true,
+          "source": "Proton Mail documentation."
+        },
+        "protonmail_domain_alias": {
+          "enabled": true,
+          "description": "protonmail.com and proton.me and pm.me resolve to the same mailbox.",
+          "verified": true,
+          "source": "https://proton.me/support/pm-me-addresses"
+        }
+      }
+    },
+    "yandex.ru": {
+      "name": "Yandex Mail",
+      "domains": ["yandex.ru", "yandex.com", "ya.ru"],
+      "verified": false,
+      "rules": {
+        "plus_addressing": {
+          "enabled": null,
+          "description": "Plus addressing behavior for Yandex Mail has not been independently verified. Do not apply.",
+          "verified": false,
+          "source": null
+        },
+        "dot_insensitive": {
+          "enabled": null,
+          "description": "Dot sensitivity for Yandex Mail has not been independently verified. Do not apply.",
+          "verified": false,
+          "source": null
+        },
+        "case_insensitive": {
+          "enabled": true,
+          "description": "Assumed case-insensitive per RFC 5321 practice, but not explicitly verified for Yandex.",
+          "verified": false,
+          "source": null
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+base_email,variant_email,provider,transformation,same_identity,canonical_email,notes
+# ============================================================
+# POSITIVE examples — same underlying identity
+# ============================================================
+# --- Gmail: plus addressing ---
+testuser@gmail.com,testuser+newsletter@gmail.com,gmail.com,plus_addressing,1,testuser@gmail.com,Standard Gmail plus-addressing
+testuser@gmail.com,testuser+work@gmail.com,gmail.com,plus_addressing,1,testuser@gmail.com,Work tag stripped
+testuser@gmail.com,testuser+college@gmail.com,gmail.com,plus_addressing,1,testuser@gmail.com,College tag stripped
+# --- Gmail: dot insensitivity ---
+testuser@gmail.com,test.user@gmail.com,gmail.com,dot_insensitive,1,testuser@gmail.com,Single dot removed
+testuser@gmail.com,t.e.s.t.u.s.e.r@gmail.com,gmail.com,dot_insensitive,1,testuser@gmail.com,Multiple dots removed
+# --- Gmail: case insensitivity ---
+testuser@gmail.com,TestUser@gmail.com,gmail.com,case_insensitive,1,testuser@gmail.com,Mixed case local part
+testuser@gmail.com,TESTUSER@gmail.com,gmail.com,case_insensitive,1,testuser@gmail.com,Uppercase local part
+# --- Gmail: plus + dots combined ---
+testuser@gmail.com,test.user+tag@gmail.com,gmail.com,plus_addressing+dot_insensitive,1,testuser@gmail.com,Dot and plus combined
+testuser@gmail.com,T.E.S.T.U.S.E.R+alpha@gmail.com,gmail.com,plus_addressing+dot_insensitive+case_insensitive,1,testuser@gmail.com,All three transformations
+# --- Gmail: googlemail.com domain alias ---
+testuser@gmail.com,testuser@googlemail.com,gmail.com,domain_alias,1,testuser@gmail.com,googlemail is an alias of gmail
+# --- Outlook: plus addressing ---
+testuser@outlook.com,testuser+shopping@outlook.com,outlook.com,plus_addressing,1,testuser@outlook.com,Outlook plus-addressing
+testuser@hotmail.com,testuser+tag@hotmail.com,outlook.com,plus_addressing,1,testuser@hotmail.com,Hotmail plus-addressing
+# --- Proton: plus addressing ---
+testuser@proton.me,testuser+secure@proton.me,proton.me,plus_addressing,1,testuser@proton.me,Proton plus-addressing
+testuser@protonmail.com,testuser+secure@protonmail.com,proton.me,plus_addressing,1,testuser@protonmail.com,Protonmail plus-addressing
+# --- Proton: domain alias ---
+testuser@proton.me,testuser@protonmail.com,proton.me,domain_alias,1,testuser@proton.me,protonmail.com is alias of proton.me
+testuser@proton.me,testuser@pm.me,proton.me,domain_alias,1,testuser@proton.me,pm.me is alias of proton.me
+# --- Yahoo: minus/dash addressing ---
+testbase@yahoo.com,testbase-shopping@yahoo.com,yahoo.com,plus_addressing,1,testbase@yahoo.com,Yahoo dash-separated disposable address
+# ============================================================
+# NEGATIVE examples — different identities
+# ============================================================
+# --- Gmail: genuinely different local parts ---
+alice@gmail.com,bob@gmail.com,gmail.com,none,0,,Different usernames
+testuser@gmail.com,testuser2@gmail.com,gmail.com,none,0,,Numeric suffix makes them distinct
+alice123@gmail.com,alice456@gmail.com,gmail.com,none,0,,Different numeric suffixes
+# --- Gmail: dots do not create an alias for Yahoo ---
+test.user@yahoo.com,testuser@yahoo.com,yahoo.com,none,0,,Yahoo does NOT ignore dots
+alice.smith@yahoo.com,alicesmith@yahoo.com,yahoo.com,none,0,,Dots significant in Yahoo
+# --- Outlook: dots are NOT ignored ---
+test.user@outlook.com,testuser@outlook.com,outlook.com,none,0,,Outlook does NOT ignore dots
+alice.smith@hotmail.com,alicesmith@hotmail.com,outlook.com,none,0,,Dots significant in Hotmail
+# --- Proton: dots are NOT ignored ---
+test.user@proton.me,testuser@proton.me,proton.me,none,0,,Proton does NOT ignore dots
+# --- Cross-provider: always different ---
+testuser@gmail.com,testuser@outlook.com,mixed,none,0,,Different providers — not aliases
+testuser@gmail.com,testuser@yahoo.com,mixed,none,0,,Different providers
+testuser@outlook.com,testuser@proton.me,mixed,none,0,,Different providers
+# --- Visually similar but different ---
+alice@gmail.com,a1ice@gmail.com,gmail.com,none,0,,Letter vs digit — different accounts
+support@gmail.com,supp0rt@gmail.com,gmail.com,none,0,,Homoglyph substitution — different accounts
+# ============================================================
+# EDGE CASES
+# ============================================================
+# --- Plus tag only, no local change ---
+a@gmail.com,a+b@gmail.com,gmail.com,plus_addressing,1,a@gmail.com,Minimal local part with plus tag
+# --- Multiple plus signs (first separator wins) ---
+user@gmail.com,user+tag1+tag2@gmail.com,gmail.com,plus_addressing,1,user@gmail.com,Only first plus is the separator

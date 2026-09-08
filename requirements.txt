@@ -1,0 +1,20 @@
+# ============================================================
+# Intelligent Email Identity Protection System
+# Requirements — Phase 1 (Alias Engine)
+# ============================================================
+# Pinned to exact versions for reproducibility.
+
+# Testing
+pytest==8.3.3
+pytest-cov==5.0.0
+
+# Phase 2+ (listed here for reference; not needed in Phase 1)
+# fastapi==0.115.0
+# uvicorn[standard]==0.30.6
+# pandas==2.2.3
+# numpy==2.1.2
+# scikit-learn==1.5.2
+# joblib==1.4.2
+# nltk==3.9.1
+# spacy==3.8.2
+# psycopg2-binary==2.9.9
